@@ -67,7 +67,7 @@ def get_prediction(select_data):
 
     # model 
 
-    model = torch.load('webServer\model\my_model.pth',map_location=torch.device('cpu'))
+    model = torch.load('webServer/model/my_model.pth',map_location=torch.device('cpu'))
 
     model.eval()
 
@@ -100,5 +100,5 @@ def get_prediction(select_data):
 
     return df_1
 
-select_data = "2330"
-print(get_prediction(select_data))
+# select_data = "2330"
+# print(get_prediction(select_data))

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <title>Dashboard</title>
+    </head>
+    <body>
+        <section>
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <div class="container">
+                    <style>
+                        .avatar {
+                          width: 50px;
+                          height: 50px;
+                          border-radius: 50%;
+                          overflow: hidden;
+                        }
+                        
+                        .avatar img {
+                          width: 100%;
+                          height: auto;
+                          object-fit: cover;
+                        }
+                    </style>
+                        
+                    <div class="avatar">
+                        <img src="https://s2.coinmarketcap.com/static/img/coins/200x200/5843.png" alt="head">
+                    </div>
+
+                    <a class="navbar-brand" href="#" style="font-size: 200%;">Stonk</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                            <li class="nav-item"><a class="nav-link active" aria-current="page" href="{{ url_for('home') }}">Home</a></li>
+                            <style>
+                                .dropdown {
+                                    position: relative;
+                                }
+                                
+                                .dropdown-menu {
+                                    display: none;
+                                    position: absolute;
+                                    top: 100%;
+                                    left: 0;
+                                    background-color: black; /* 设置背景颜色为黑色 */
+                                    color: white; /* 设置文字颜色为白色 */
+                                }
+                                
+                                .dropdown:hover .dropdown-menu {
+                                    display: block;
+                                }
+                            </style>
+                                
+                            <div class="dropdown">
+                                <a class="nav-link">{{ username }}</a>
+                                <ul class="dropdown-menu">
+                                    <li class="nav-item"><a class="nav-link" href="{{ url_for('dashboard') }}">Dashboard</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="{{ url_for('register') }}">Register new account</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="{{ url_for('logout') }}">Log Out</a></li>
+                                </ul>
+                            </div>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <!-- Page content-->
+            <div class="vh" style="background-color:cadetblue;">
+                <div class="text-center"><br><br>
+                    <h1>Welcome, {{ username }}!</h1>
+                </div>
+
+                <form method="POST" action="{{ url_for('process_data') }}">
+        
+                    <section>
+                        <div class="container py-5">
+                          <div class="row d-flex justify-content-center align-items-center h-100">
+                            <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                              <div class="card bg-dark text-white" style="border-radius: 1rem;">
+                                <div class="card-body p-5 text-center">
+                      
+                                  <div class=" mt-md-4 pb-5">
+                      
+                                    <h2 class="fw-bold mb-2">Taiwan Stock Prediction</p></h2>
+                                    <p class="text-white-50 mb-5">Please enter the Taiwan Stock Code (ex. 2330)</p>
+                      
+                                    <div class="form-outline form-white mb-4">
+                                        <input type="text" id="stockcode" name="stockcode" class="form-control form-control-lg" required/>
+                                        <label class="form-label" >Code</label>
+                                    </div>
+                                
+                                    <button class="btn btn-outline-light btn-lg px-5" type="submit">Enter</button>
+                      
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          
+                        </div>
+                    </section>
+                    <div class="text-center"><br><br>
+                        <h1>Taiwan Stock Info</h1>
+                    </div>
+                    <div class="table-container">
+                        {{ table_html | safe }}
+                    </div>
+                    <style>
+                        .table-container {
+                          display: flex;
+                          justify-content: center;
+                        }
+                        
+                        table {
+                          border-collapse: collapse;
+                          margin: 0 auto;
+                        }
+                        
+                        th, td {
+                          padding: 8px;
+                          border: 1px solid black;
+                        }
+                    </style>
+            </div>
+            
+
+            
+        </section>
+    </body>
+</html>

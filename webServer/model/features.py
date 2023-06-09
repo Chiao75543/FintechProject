@@ -268,7 +268,7 @@ def total_features(stock_id):
     # 使用 ffill 方法向前填充缺失值
     result = result.fillna(method='ffill')
 
-    result_name = 'model/data/{}_Total_features.csv'.format(stock_id)
+    # result_name = 'model/data/{}_Total_features.csv'.format(stock_id)
     # result.to_csv(result_name, index=True)
     # print(result.isnull().sum())
     # print(result)
