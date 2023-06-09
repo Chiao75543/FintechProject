@@ -94,8 +94,11 @@ def get_prediction(select_data):
 
     df = pd.DataFrame(pred_labels, index=business_days, columns=['Prediction'])
     df.index = df.index.strftime('%Y-%m-%d')
-    
-    return df[:31]
+
+    df = df[:31]
+    df_1 = df[df['Prediction'] == 1]
+
+    return df_1
 
 select_data = "2330"
 print(get_prediction(select_data))
