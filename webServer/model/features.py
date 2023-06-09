@@ -1,6 +1,8 @@
 import requests
 import pandas as pd
 import numpy as np
+from datetime import datetime
+from dateutil.relativedelta import relativedelta
 
 
 def TaiwanStockPrice(stock_id): #FinMind_台灣股價資料表
@@ -275,12 +277,16 @@ def total_features(stock_id):
 
 
 # stock_id = "2330"   #台積電
-start_date = "2018-01-01"
-end_date = "2023-01-31"
+# 獲取今天的日期
+end_date = datetime.now()
 
-stock_id = input("請輸入股票代碼:")
+# 獲取五年前的日期
+start_date = end_date - relativedelta(years=5)
+
+end_date = end_date.strftime('%Y-%m-%d')
+start_date = start_date.strftime('%Y-%m-%d')
 
 
-Total_features = total_features(stock_id)
+Total_features = total_features("2330")
 
 
