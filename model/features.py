@@ -2,11 +2,8 @@ import requests
 import pandas as pd
 import numpy as np
 
-stock_id = "2330"   #台積電
-start_date = "2018-01-01"
-end_date = "2023-01-31"
 
-def TaiwanStockPrice(): #FinMind_台灣股價資料表
+def TaiwanStockPrice(stock_id): #FinMind_台灣股價資料表
     url = "https://api.finmindtrade.com/api/v4/data"  #FinMind v4 api
     parameter = {
         "dataset": "TaiwanStockPrice",
@@ -42,7 +39,7 @@ def TaiwanStockPrice(): #FinMind_台灣股價資料表
     return new_df1
 
 
-def TaiwanStockInstitutionalInvestorsBuySell(): #FinMind_個股三大法人買賣表
+def TaiwanStockInstitutionalInvestorsBuySell(stock_id): #FinMind_個股三大法人買賣表
     url = "https://api.finmindtrade.com/api/v4/data" #FinMind v4 api
     parameter = {
         "dataset": "TaiwanStockInstitutionalInvestorsBuySell",
@@ -114,7 +111,7 @@ def TaiwanStockInstitutionalInvestorsBuySell(): #FinMind_個股三大法人買�
     return df2
 
 
-def TaiwanStockMarginPurchaseShortSale(): #FinMind_個股融資融劵表  ＃融資融券
+def TaiwanStockMarginPurchaseShortSale(stock_id): #FinMind_個股融資融劵表  ＃融資融券
     url = "https://api.finmindtrade.com/api/v4/data"
     parameter = {
         "dataset": "TaiwanStockMarginPurchaseShortSale",
@@ -171,7 +168,7 @@ def TaiwanStockMarginPurchaseShortSale(): #FinMind_個股融資融劵表  ＃融
     #print(new_df1)
     #print(df2)
 
-    DailyShortSaleBalances_df = TaiwanDailyShortSaleBalances() #借券
+    DailyShortSaleBalances_df = TaiwanDailyShortSaleBalances(stock_id) #借券
 
     #合併 融資融券 與 借券
     merged_df = new_df2.merge(DailyShortSaleBalances_df, left_index=True, right_index=True, how='outer')
@@ -183,7 +180,7 @@ def TaiwanStockMarginPurchaseShortSale(): #FinMind_個股融資融劵表  ＃融
     return merged_df
 
 
-def TaiwanDailyShortSaleBalances(): #FinMind_融券借券賣出表  #借券
+def TaiwanDailyShortSaleBalances(stock_id): #FinMind_融券借券賣出表  #借券
     url = "https://api.finmindtrade.com/api/v4/data"
     parameter = {
         "dataset": "TaiwanDailyShortSaleBalances",
@@ -229,7 +226,7 @@ def TaiwanDailyShortSaleBalances(): #FinMind_融券借券賣出表  #借券
     return new_df1
 
 
-def TaiwanStockHoldingSharesPer(): #FinMind_股東持股分級表
+def TaiwanStockHoldingSharesPer(stock_id): #FinMind_股東持股分級表
     url = "https://api.finmindtrade.com/api/v4/data"
     parameter = {
         "dataset": "TaiwanStockHoldingSharesPer",
@@ -255,7 +252,13 @@ def TaiwanStockHoldingSharesPer(): #FinMind_股東持股分級表
     return df2
 
 
-def total_features(price, IIBS, MPSS, HSP):
+def total_features(stock_id):
+
+    price = TaiwanStockPrice(stock_id) #股價
+    IIBS = TaiwanStockInstitutionalInvestorsBuySell(stock_id) #三大法人
+    MPSS = TaiwanStockMarginPurchaseShortSale(stock_id) #融資融券借券
+    HSP = TaiwanStockHoldingSharesPer(stock_id) #張數區間持股比例
+
     result = pd.merge(price, IIBS, left_index=True, right_index=True)
     result = pd.merge(result, MPSS, left_index=True, right_index=True)
     result = pd.merge(result, HSP, left_index=True, right_index=True, how='outer')
@@ -263,20 +266,21 @@ def total_features(price, IIBS, MPSS, HSP):
     # 使用 ffill 方法向前填充缺失值
     result = result.fillna(method='ffill')
 
-    result_name = 'data/{}_Total_features.csv'.format(stock_id)
-    result.to_csv(result_name, index=True)
+    result_name = 'model/data/{}_Total_features.csv'.format(stock_id)
+    # result.to_csv(result_name, index=True)
     # print(result.isnull().sum())
     # print(result)
 
     return result
 
 
+# stock_id = "2330"   #台積電
+start_date = "2018-01-01"
+end_date = "2023-01-31"
 
-Price = TaiwanStockPrice() #股價
-IIBuySell = TaiwanStockInstitutionalInvestorsBuySell() #三大法人
-MPSSale = TaiwanStockMarginPurchaseShortSale() #融資融券借券
-HSPer = TaiwanStockHoldingSharesPer() #張數區間持股比例
+stock_id = input("請輸入股票代碼:")
 
-Total_features = total_features(Price,IIBuySell,MPSSale,HSPer)
+
+Total_features = total_features(stock_id)
 
 
