@@ -176,20 +176,17 @@ def register():
 @app.route('/dashboard', methods=['GET', 'POST'])
 def dashboard():
     if session.get('logged_in'):
-        dl = DT()
+        # dl = DT()
 
+        # df2 = dl.taiwan_stock_info()
 
-        df2 = dl.taiwan_stock_info()
-
-        new_df = pd.concat([df2['stock_id'], df2['stock_name']], axis=1).drop_duplicates()
-
-        
-        table_html = new_df.to_html()
-
+        # new_df = pd.concat([df2['stock_id'], df2['stock_name']], axis=1).drop_duplicates()
+      
+        # table_html = new_df.to_html()
 
         if request.method == 'POST':
             return redirect(url_for('process_data'))
-        return render_template('dashboard.html', table_html = table_html, username=session['username'])
+        return render_template('dashboard.html', username=session['username'])
     else:
         return redirect(url_for('login'))
 
@@ -202,22 +199,19 @@ def logout():
 def process_data():
     dl = DT()
 
-
     input_data = request.form['stockcode']
 
     df1 = get_prediction(input_data)
-    
+
     df2 = dl.taiwan_stock_info()
+
     value = df2.loc[df2['stock_id'] == input_data, 'stock_name'].values[0]
-
-    # 将 DataFrame 转换为 HTML 表格
     
-
     # 将 DataFrame 转换为 HTML 表格
-    table_html = df1.to_html()
+    # table_html = df1.to_html()
 
     # 将结果和表格数据传递到结果页面模板
-    return render_template('result.html', result=value, table_html=table_html, username=session['username'])
+    return render_template('result.html', result=value, table_html=df1, username=session['username'])
 
     # return render_template('result.html', result=df)
 

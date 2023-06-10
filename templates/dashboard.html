@@ -67,66 +67,52 @@
                 </div>
             </nav>
             <!-- Page content-->
-            <div class="vh" style="background-color:cadetblue;">
-                <div class="text-center"><br><br>
-                    <h1>Welcome, {{ username }}!</h1>
-                </div>
+            <div class="vh" style="background-image: linear-gradient(120deg, #e0c3fc 0%, #8ec5fc 100%);">
+
 
                 <form method="POST" action="{{ url_for('process_data') }}">
-        
-                    <section>
-                        <div class="container py-5">
-                          <div class="row d-flex justify-content-center align-items-center h-100">
-                            <div class="col-12 col-md-8 col-lg-6 col-xl-5">
-                              <div class="card bg-dark text-white" style="border-radius: 1rem;">
-                                <div class="card-body p-5 text-center">
-                      
-                                  <div class=" mt-md-4 pb-5">
-                      
-                                    <h2 class="fw-bold mb-2">Taiwan Stock Prediction</p></h2>
-                                    <p class="text-white-50 mb-5">Please enter the Taiwan Stock Code (ex. 2330)</p>
-                      
-                                    <div class="form-outline form-white mb-4">
-                                        <input type="text" id="stockcode" name="stockcode" class="form-control form-control-lg" required/>
-                                        <label class="form-label" >Code</label>
-                                    </div>
-                                
-                                    <button class="btn btn-outline-light btn-lg px-5" type="submit">Enter</button>
-                      
+                    <div class="container py-5">
+                        <div class="row d-flex justify-content-center align-items-center h-100">
+                          <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                            <div class="card bg-dark text-white" style="border-radius: 1rem;">
+                              <div class="card-body p-5 text-center">
+                    
+                                <div class=" mt-md-4 pb-5">
+
+                                  <h1 class="fw-bold mb-2">Welcome, {{ username }}!</h1><br>
+                    
+                                  <h2 class="fw-bold mb-2">Taiwan Stock Prediction</p></h2>
+                                  <p class="text-white-50 mb-5">Please enter the Taiwan Stock Code (ex. 2330)</p>
+                    
+                                  <div class="form-outline form-white mb-4">
+                                      <input type="text" id="stockcode" name="stockcode" class="form-control form-control-lg" required/>
+                                      <label class="form-label" >Code</label>
                                   </div>
+                              
+                                  <button class="btn btn-outline-light btn-lg px-5" type="submit">Enter</button>                   
                                 </div>
                               </div>
                             </div>
                           </div>
-                          
                         </div>
-                    </section>
-                    <div class="text-center"><br><br>
-                        <h1>Taiwan Stock Info</h1>
-                    </div>
-                    <div class="table-container">
-                        {{ table_html | safe }}
-                    </div>
-                    <style>
-                        .table-container {
-                          display: flex;
-                          justify-content: center;
-                        }
-                        
-                        table {
-                          border-collapse: collapse;
-                          margin: 0 auto;
-                        }
-                        
-                        th, td {
-                          padding: 8px;
-                          border: 1px solid black;
-                        }
-                    </style>
-            </div>
-            
-
-            
+                    </div><br><br>
+                    <div class="bg-dark">
+                        <div class="container">
+                            <div class="row gx-5 align-items-center justify-content-center">
+                                <div class="col-lg-8 col-xl-7 col-xxl-6">
+                                    <div class="my-5 text-center text-xl-start">
+                                        <h1 class="fw-bolder text-white mb-2">Contact Us!</h1></p>
+                                        <p class="lead fw-normal text-white">Email: stonkisgood@stonk.com</p>
+                                        <p class="lead fw-normal text-white">Phone: +886 2 8877 5566</p>
+                                        <p class="lead fw-normal text-white">Location: National Chung Cheng University</p>
+                                        
+                                    </div>
+                                </div>
+                                <div class="col-xl-5 col-xxl-6 d-none d-xl-block text-center"></div>
+                            </div>
+                        </div>
+                      </div>                 
+            </div>                      
         </section>
     </body>
 </html>

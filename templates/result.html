@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <title>Result</title>
 </head>
-<body style="background-image: linear-gradient(120deg, #e0c3fc 0%, #8ec5fc 100%);">
+<body>
     <section>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container">
@@ -66,67 +66,54 @@
             </div>
         </nav>
         <!-- Page content-->
-        <div class="vh" >
+        <div class="vh"  style="background-image: linear-gradient(120deg, #e0c3fc 0%, #8ec5fc 100%);">
             <div class="text-center"><br><br>
-                <h1>Processed Data: {{ result }}</h1><br>
-
-                <button onclick="redirectToPage()" class="btn btn-outline-dark btn-lg px-5" type="submit">Back</button>
-                <script>
-                    function redirectToPage() {
-                      window.location.href = "{{ url_for('dashboard') }}";
-                    }
-                </script>
-
-                <section>
-                    <div class="container py-5">
-                      <div class="row d-flex justify-content-center align-items-center h-100">
-                        <div class="col-12">
-                          <div class="card bg-dark text-white" style="border-radius: 1rem;">
-                            <div class="card-body p-5 text-center">
-                  
-                              <div class="mt-md-4 pb-5">
-                                <h1>In future 30 days will up up</h1><br><br>
-                  
-                                <div class="table-container">
-                                    {{ table_html | safe }}
-                                </div>
-                                <style>
-                                    .table-container {
-                                      display: flex;
-                                      justify-content: center;
-                                    }
-                                    
-                                    table {
-                                      border-collapse: collapse;
-                                      margin: 0 auto;
-                                    }
-                                    
-                                    th, td {
-                                      padding: 8px;
-                                      border: 1px solid white;
-                                    }
-                                </style>
-                                    
-                  
-                              </div>
-                              <button onclick="scrollToTop()" class="btn btn-outline-light btn px-5">Back to top</button>
-                                <script>
-                                function scrollToTop() {
-                                window.scrollTo({
-                                    top: 0,
-                                    behavior: 'smooth'  // 可选的，实现平滑滚动效果
-                                });
-                                }
-                                </script>
-                            </div>
+                <div class="container py-5">
+                  <div class="row d-flex justify-content-center align-items-center h-100">
+                    <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                      <div class="card bg-dark text-white" style="border-radius: 1rem;">
+                        <div class="card-body p-5 text-center">
+              
+                          <div class=" mt-md-4">
+              
+                            <h2 class="fw-bold mb-2">Stock: {{ result }}</p></h2>
+                            <p class="text-white-50 mb-5">Will rise in the next 30 days</p>
+                            <div class="text-center">
+                              {% for index, row in table_html.iterrows() %}
+                                  <p>{{ index }}</p>
+                              {% endfor %}
+                            </div><br>
+                            <button onclick="redirectToPage()" class="btn btn-outline-light btn-lg px-5" type="submit">Back</button>
+                              <script>
+                                  function redirectToPage() {
+                                    window.location.href = "{{ url_for('dashboard') }}";
+                                  }
+                              </script>
+              
+                                       
                           </div>
                         </div>
                       </div>
                     </div>
-                </section>
+                  </div>
+
             </div>
-    
-                
+            <div class="bg-dark">
+              <div class="container">
+                  <div class="row gx-5 align-items-center justify-content-center">
+                      <div class="col-lg-8 col-xl-7 col-xxl-6">
+                          <div class="my-5 text-center text-xl-start">
+                              <h1 class="fw-bolder text-white mb-2">Contact Us!</h1></p>
+                              <p class="lead fw-normal text-white">Email: Stonkisgood@stonk.com</p>
+                              <p class="lead fw-normal text-white">Phone: +886 2 8877 5566</p>
+                              <p class="lead fw-normal text-white">Location: National Chung Cheng University</p>
+                              
+                          </div>
+                      </div>
+                      <div class="col-xl-5 col-xxl-6 d-none d-xl-block text-center"></div>
+                  </div>
+              </div>
+            </div>
         </div> 
     </section>
 </body>
